@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    ## PostgreSQL
+    url: jdbc:h2:mem:postgres;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=POSTGRESQL;INIT=RUNSCRIPT FROM 'classpath:./h2-create-database.sql';
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: test
+            client-secret: test
+            authorization-grant-type: client_credentials
+            scope: test
+        provider:
+          okta:
+            token-uri: https://dev-79580021.okta.com/oauth2/ausa8khazhLhrqATr5d7/v1/token
+server:
+  port: 8443
+  ssl:
+    client-auth: need
+    enabled: true
+    key-store: classpath:test-client.p12
+    key-store-password: password123
+    key-alias: test-client
+    trust-store: classpath:test-client.jks
+    trust-store-password: password123
